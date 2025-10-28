@@ -1,5 +1,6 @@
 // pages/Contact.jsx
 import React, { useState, useEffect, useRef } from "react";
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -89,51 +90,72 @@ const Contact = () => {
       [name]: value,
     });
     
-    // Clear error when user starts typing
     if (error) setError("");
   };
 
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
+  
+  console.log('🔄 Form submission started');
+  
+  if (formData.securityCode !== captchaText) {
+    setError("Security code incorrect. Try again.");
+    generateCaptcha();
+    return;
+  }
+
+  setIsLoading(true);
+  setError("");
+
+  try {
+    console.log('📤 Preparing to send email via EmailJS...');
+const templateParams = {
+  to_name: "Nabeeha",
+  user_name: formData.name,      // Changed from from_name
+  user_email: formData.email,    // Changed from from_email
+  user_phone: formData.phone,    // Added user_ prefix
+  user_country: formData.country, // Added user_ prefix
+  user_message: formData.message, // Changed from message
+  reply_to: formData.email,
+};
+
+    const serviceID = 'service_kznmhl7';
+    const templateID = 'template_uk3jjsu';
+    const userID = 'CHPgbYixr27MBaOLP';
+
+    console.log('📧 Sending email with params:', templateParams);
+
+    const result = await emailjs.send(
+      serviceID,
+      templateID,
+      templateParams,
+      userID
+    );
+
+    console.log('✅ Email sent successfully:', result);
+    setIsSubmitted(true);
     
-    if (formData.securityCode !== captchaText) {
-      setError("Security code incorrect. Try again.");
-      generateCaptcha();
-      return;
-    }
-
-    setIsLoading(true);
-    setError("");
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          country: formData.country,
-          message: formData.message,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setIsSubmitted(true);
+  } catch (error) {
+    console.error('❌ Email sending failed:', error);
+    
+    if (error.text) {
+      console.log('EmailJS error details:', error.text);
+      
+      if (error.text.includes('recipients address is empty')) {
+        setError("Please check your EmailJS template configuration. The recipient email is not set.");
       } else {
-        throw new Error(data.message || "Failed to send message");
+        setError(`Email service error: ${error.text}`);
       }
-    } catch (error) {
-      console.error("Error:", error);
-      setError(error.message || "Failed to send message. Please try again later.");
-    } finally {
-      setIsLoading(false);
+    } else if (error.status === 0) {
+      setError("Network error. Please check your internet connection.");
+    } else {
+      setError("Failed to send message. Please try again later.");
     }
-  };
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   const handleReset = () => {
     setFormData({
@@ -149,6 +171,7 @@ const Contact = () => {
     setError("");
   };
 
+  // Rest of your JSX remains exactly the same...
   return (
     <div className="contact-page">
       {/* Banner Section */}
@@ -175,22 +198,7 @@ const Contact = () => {
               If you have any suggestion or question for my website services,
               please write your query to me. I would like to answer you ASAP.
             </p>
-
-            <div className="divider"></div>
-
-            <div className="simple-contact-details">
-              <h4>My Emails</h4>
-              <p>ammanm0789@gmail.com</p>
-              <p>apexium.space@gmail.com</p>
-
-              <div className="divider"></div>
-
-              <h4>Need a Quick Response?</h4>
-              <p>You can call me on my Phone Number:</p>
-              <p><strong>+923405542097</strong></p>
-            </div>
           </div>
-
           <div className="contact-form">
             {isSubmitted ? (
               <div className="success-message">
@@ -312,7 +320,6 @@ const Contact = () => {
           min-height: 100vh;
         }
 
-        /* ✅ Banner fix */
         .contact-banner {
           background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
             url("https://images.unsplash.com/photo-1516387938699-a93567ec168e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80");

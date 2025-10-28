@@ -16,7 +16,7 @@ const About = () => {
       {/* Full-width header banner */}
       <div className="about-banner">
         <div className="banner-overlay">
-          <h1>Muhammad Amman</h1>
+          <h1>Nabeeha Maqsood</h1>
           <p>WEB DEVELOPER</p>
         </div>
       </div>
@@ -34,18 +34,18 @@ const About = () => {
           <div className="about-grid">
             <div className="about-image">
               <img
-                src="/images/amman.jpg"
-                alt="Muhammad Amman"
+                src="/images/Nabeeha.jpg"
+                alt="Nabeeha "
               />
             </div>
 
             <div className="about-text">
-              <h3>About Muhammad Amman</h3>
+              <h3>About Nabeeha</h3>
               <p>
                 I am an <span className="text-highlight">experienced web designer and developer</span> 
-                providing professional websites in Pakistan since 2005. With a 
-                <span className="text-highlight"> Masters in Information Technology</span>, my journey began 
-                in the traditional IT sector.
+                 providing professional websites in Pakistan since 2025. With a 
+                <span className="text-highlight"> </span>, my journey began 
+                in the traditional IT sector. I completed my foundational studies in Computer Science from the prestigious <span className="text-highlight">FAST National University in Karachi</span>.
               </p>
               <p>
                 I specialize in building <span className="text-highlight">marketing-focused websites</span> 

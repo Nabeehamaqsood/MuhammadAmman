@@ -1,0 +1,127 @@
+.tech-stack-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  text-align: center;
+  background: #f8f9fa;
+  overflow: hidden;
+}
+
+.tech-stack-title {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  color: #333;
+  font-weight: 700;
+}
+
+/* Carousel Styles */
+.carousel-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel {
+  display: flex;
+  animation: scroll 20s linear infinite;
+}
+
+.logo-track {
+  display: flex;
+  gap: 30px;
+  padding: 20px 0;
+}
+
+.logo-item {
+  /* White background removed */
+  border-radius: 15px;
+  padding: 25px 20px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 3px solid transparent;
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-item:hover {
+  transform: translateY(-5px);
+  border-color: var(--tech-color);
+  /* Shadow removed since background is gone */
+}
+
+.logo-image {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 15px;
+  transition: transform 0.3s ease;
+}
+
+.logo-item:hover .logo-image {
+  transform: scale(1.2);
+}
+
+.logo-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+/* Animation for infinite scroll */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Pause animation on hover */
+.carousel-container:hover .carousel {
+  animation-play-state: paused;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .tech-stack-title {
+    font-size: 2rem;
+  }
+  
+  .logo-item {
+    min-width: 130px;
+    padding: 20px 15px;
+  }
+  
+  .logo-image {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .logo-name {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tech-stack-title {
+    font-size: 1.8rem;
+  }
+  
+  .logo-item {
+    min-width: 110px;
+    padding: 15px 10px;
+  }
+  
+  .logo-image {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .logo-name {
+    font-size: 0.9rem;
+  }
+}

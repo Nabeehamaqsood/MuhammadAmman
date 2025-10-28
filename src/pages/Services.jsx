@@ -10,7 +10,7 @@ const Services = () => {
         backgroundImage: `url(https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.1&auto=format&fit=crop&w=2000&q=80)`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        height: '60vh',
+        height: '500px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -433,10 +433,10 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Add Font Awesome for icons */}
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+        {/* FontAwesome */}
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
       
-      {/* Basic styling for the container */}
+      {/* Updated responsive styles */}
       <style jsx>{`
         .container {
           max-width: 1200px;
@@ -465,7 +465,21 @@ const Services = () => {
           }
           
           .banner p {
-            font-size: 1.2rem;
+            font-size: 1rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .banner {
+            height: 250px; /* Even shorter on very small screens */
+          }
+          
+          .banner h1 {
+            font-size: 1.8rem;
+          }
+          
+          .banner p {
+            font-size: 0.9rem;
           }
         }
       `}</style>
